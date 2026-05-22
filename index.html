@@ -183,16 +183,217 @@
         let activeDay = "Saturday";
         let activeSection = "1-1 A";
 
-        // Prepopulate layout with the provided routine array (Now Empty)
-        const defaultRoutineData = [];
+        // Prepopulate layout with the provided routine array
+        const defaultRoutineData = [
+          {
+            "id": 1779378657521,
+            "day": "Saturday",
+            "time": "10:30-11:30",
+            "course": "0533-111 A",
+            "section": "1-1 A",
+            "teacher": "SAT",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657522,
+            "day": "Saturday",
+            "time": "11:30-12:30",
+            "course": "0541-113 A",
+            "section": "1-1 A",
+            "teacher": "HRP",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657523,
+            "day": "Saturday",
+            "time": "1:00-2:00",
+            "course": "0231-112 A",
+            "section": "1-1 A",
+            "teacher": "MR",
+            "room": "102",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657524,
+            "day": "Saturday",
+            "time": "2:00-3:00",
+            "course": "0231-112 A",
+            "section": "1-1 A",
+            "teacher": "MR",
+            "room": "102",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657525,
+            "day": "Saturday",
+            "time": "1:00-2:00",
+            "course": "0533-112 A",
+            "section": "1-1 A",
+            "teacher": "ZK",
+            "room": "AB2-301",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657526,
+            "day": "Saturday",
+            "time": "2:00-3:00",
+            "course": "0533-112 A",
+            "section": "1-1 A",
+            "teacher": "ZK",
+            "room": "AB2-301",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657527,
+            "day": "Monday",
+            "time": "8:30-9:30",
+            "course": "0533-111 A",
+            "section": "1-1 A",
+            "teacher": "SAT",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657528,
+            "day": "Monday",
+            "time": "9:30-10:30",
+            "course": "0713-111 A",
+            "section": "1-1 A",
+            "teacher": "MRK",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657529,
+            "day": "Monday",
+            "time": "10:30-11:30",
+            "course": "0541-111 A",
+            "section": "1-1 A",
+            "teacher": "SDN",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657530,
+            "day": "Monday",
+            "time": "1:00-2:00",
+            "course": "0231-112 A",
+            "section": "1-1 A",
+            "teacher": "MR",
+            "room": "102",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657531,
+            "day": "Monday",
+            "time": "2:00-3:00",
+            "course": "0231-112 A",
+            "section": "1-1 A",
+            "teacher": "MR",
+            "room": "102",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657532,
+            "day": "Monday",
+            "time": "1:00-2:00",
+            "course": "0533-112 A",
+            "section": "1-1 A",
+            "teacher": "ZK",
+            "room": "AB2-301",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657533,
+            "day": "Monday",
+            "time": "2:00-3:00",
+            "course": "0533-112 A",
+            "section": "1-1 A",
+            "teacher": "ZK",
+            "room": "AB2-301",
+            "type": "Lab"
+          },
+          {
+            "id": 1779378657534,
+            "day": "Tuesday",
+            "time": "8:30-9:30",
+            "course": "0533-111 A",
+            "section": "1-1 A",
+            "teacher": "SAT",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657535,
+            "day": "Tuesday",
+            "time": "9:30-10:30",
+            "course": "0541-113 A",
+            "section": "1-1 A",
+            "teacher": "HRP",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657536,
+            "day": "Tuesday",
+            "time": "10:30-11:30",
+            "course": "0713-111 A",
+            "section": "1-1 A",
+            "teacher": "MRK",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657537,
+            "day": "Tuesday",
+            "time": "11:30-12:30",
+            "course": "0541-111 A",
+            "section": "1-1 A",
+            "teacher": "SDN",
+            "room": "303",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657538,
+            "day": "Wednesday",
+            "time": "1:00-2:00",
+            "course": "0713-111 A",
+            "section": "1-1 A",
+            "teacher": "MRK",
+            "room": "404",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657539,
+            "day": "Wednesday",
+            "time": "2:00-3:00",
+            "course": "0541-111 A",
+            "section": "1-1 A",
+            "teacher": "SDN",
+            "room": "404",
+            "type": "Theory"
+          },
+          {
+            "id": 1779378657540,
+            "day": "Wednesday",
+            "time": "3:00-4:00",
+            "course": "0541-113 A",
+            "section": "1-1 A",
+            "teacher": "HRP",
+            "room": "404",
+            "type": "Theory"
+          }
+        ];
 
         let routine = JSON.parse(localStorage.getItem('eee_v6_data')) || defaultRoutineData;
 
-        // Force-load the clean empty data set if not already updated to database version 8
-        if (!localStorage.getItem('eee_v8_initialized')) {
+        // Force-load the clean empty data set if not already updated to database version 9
+        if (!localStorage.getItem('eee_v9_initialized')) {
             routine = defaultRoutineData;
             localStorage.setItem('eee_v6_data', JSON.stringify(routine));
-            localStorage.setItem('eee_v8_initialized', 'true');
+            localStorage.setItem('eee_v9_initialized', 'true');
         }
 
         // --- SCROLL LOGIC ---
@@ -209,7 +410,6 @@
             }
         });
 
-        // --- STREAMING_CHUNK:Implementing custom dialogue engines... ---
         // --- CUSTOM MODERN DIALOG ENGINES (Replaces native blocking Prompt/Confirm/Alert) ---
         function customPrompt(message, isPassword = false, isTextArea = false) {
             return new Promise((resolve) => {
@@ -433,7 +633,6 @@
             }
         }
 
-        // --- STREAMING_CHUNK:Developing routine updates and clean operations... ---
         async function deleteItem(id) { 
             if(await customConfirm("Are you sure you want to delete this routine slot?")) { 
                 routine = routine.filter(i => i.id !== id); 
@@ -502,6 +701,7 @@
                         </div>
                         <h4 class="text-xl font-black text-white mb-6 leading-tight">${TEACHERS[c.teacher] || c.teacher}</h4>
                         <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/50 space-y-2">
+                            ${c.course ? `<p class="text-xs text-emerald-400 font-bold">📚 Course: ${c.course}</p>` : ''}
                             <p class="text-xs text-indigo-400 font-bold">👤 Initial: ${c.teacher}</p>
                             <p class="text-xs text-slate-400 font-bold">📍 Room: ${c.room}</p>
                         </div>
@@ -512,7 +712,6 @@
             cont.appendChild(grid);
         }
 
-        // --- STREAMING_CHUNK:Running backup and recovery functions... ---
         function showToast(msg) { 
             const t = document.getElementById('toast'); 
             t.innerText = msg; 
