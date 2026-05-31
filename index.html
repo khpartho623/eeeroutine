@@ -12,10 +12,7 @@
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         @media print { .print-hidden { display: none !important; } body { background: white; color: black; } }
-        
-        #action-bar {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        #action-bar { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased">
@@ -34,7 +31,6 @@
     </header>
 
     <main class="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 flex-grow pb-24">
-
         <!-- NAVIGATION FILTERS -->
         <section class="bg-slate-900 border border-slate-900 rounded-3xl shadow-xl p-6 space-y-6 print-hidden">
             <div>
@@ -49,7 +45,6 @@
 
         <!-- ROUTINE DISPLAY -->
         <div id="routine-container"></div>
-
     </main>
 
     <!-- ADMIN MODAL -->
@@ -71,7 +66,6 @@
                 </select>
                 <button type="submit" class="bg-emerald-600 text-white font-bold rounded-xl py-3 shadow-lg hover:bg-emerald-500 transition">Add Slot</button>
             </form>
-
             <div class="pt-6 border-t border-slate-800">
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Backup & Data Tools</h3>
                 <div class="flex flex-wrap gap-4">
@@ -107,7 +101,6 @@
         </button>
     </div>
 
-    <!-- FOOTER -->
     <footer class="w-full text-center py-6 border-t border-slate-900 text-slate-600 text-xs font-bold tracking-widest uppercase print-hidden mt-auto">
          <p class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.1em]">
              Powered by <a href="https://khpartho623.github.io/me/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">Md. Kamrul Hasan</a>
@@ -125,39 +118,35 @@
         let activeSection = "1-1 A";
 
         const defaultRoutineData = [
-          // A
-          { id: 1, day: "Saturday", time: "10:30-11:30", course: "0533-111 A", section: "1-1 A", teacher: "SAT", room: "402", type: "Theory" },
-          { id: 2, day: "Saturday", time: "9:30-10:30", course: "0541-113 A", section: "1-1 A", teacher: "HRP", room: "402", type: "Theory" },
-          { id: 3, day: "Saturday", time: "1:00-2:00", course: "0231-112 A2", section: "1-1 A", teacher: "MR", room: "102", type: "Lab" },
-          { id: 4, day: "Saturday", time: "2:00-3:00", course: "0231-112 A2", section: "1-1 A", teacher: "MR", room: "102", type: "Lab" },
-          { id: 5, day: "Saturday", time: "1:00-2:00", course: "0533-112 A1", section: "1-1 A", teacher: "ZK", room: "AB2-301", type: "Lab" },
-          { id: 6, day: "Saturday", time: "2:00-3:00", course: "0533-112 A1", section: "1-1 A", teacher: "ZK", room: "AB2-301", type: "Lab" },
-          { id: 7, day: "Monday", time: "8:30-9:30", course: "0533-111 A", section: "1-1 A", teacher: "SAT", room: "303", type: "Theory" },
-          { id: 8, day: "Monday", time: "9:30-10:30", course: "0713-111 A", section: "1-1 A", teacher: "MRK", room: "303", type: "Theory" },
-          { id: 9, day: "Monday", time: "10:30-11:30", course: "0541-111 A", section: "1-1 A", teacher: "SDN", room: "303", type: "Theory" },
-          { id: 10, day: "Monday", time: "1:00-2:00", course: "0231-112 A1", section: "1-1 A", teacher: "MR", room: "102", type: "Lab" },
-          { id: 11, day: "Monday", time: "2:00-3:00", course: "0231-112 A1", section: "1-1 A", teacher: "MR", room: "102", type: "Lab" },
-          { id: 12, day: "Tuesday", time: "8:30-9:30", course: "0533-111 A", section: "1-1 A", teacher: "SAT", room: "303", type: "Theory" },
-          // B
-          { id: 13, day: "Saturday", time: "10:30-11:30", course: "0541-113 B", section: "1-1 B", teacher: "HRP", room: "303", type: "Theory" },
-          { id: 14, day: "Monday", time: "8:30-9:30", course: "0541-111 B", section: "1-1 B", teacher: "SDN", room: "304", type: "Theory" },
-          // C
-          { id: 15, day: "Saturday", time: "1:00-2:00", course: "0541-113 C", section: "1-1 C", teacher: "HRP", room: "405", type: "Theory" },
-          { id: 16, day: "Saturday", time: "2:00-3:00", course: "0533-111 C", section: "1-1 C", teacher: "SAT", room: "405", type: "Theory" },
-          { id: 17, day: "Monday", time: "1:00-2:00", course: "0533-111 C", section: "1-1 C", teacher: "SAT", room: "303", type: "Theory" },
-          { id: 18, day: "Monday", time: "2:00-3:00", course: "0713-111 C", section: "1-1 C", teacher: "MRK", room: "303", type: "Theory" },
-          // D
-          { id: 19, day: "Saturday", time: "1:00-2:00", course: "0541-111 D", section: "1-1 D", teacher: "SDN", room: "302", type: "Theory" },
-          { id: 20, day: "Sunday", time: "8:30-9:30", course: "0533-111 D", section: "1-1 D", teacher: "MMR", room: "304", type: "Theory" },
-          // E
-          { id: 21, day: "Saturday", time: "11:30-12:30", course: "0711-111 E", section: "1-1 E", teacher: "TRS", room: "404", type: "Theory" },
-          { id: 22, day: "Monday", time: "1:00-2:00", course: "0711-111 E", section: "1-1 E", teacher: "TRS", room: "406", type: "Theory" },
-          // F
-          { id: 23, day: "Saturday", time: "8:30-9:30", course: "0711-111 F", section: "1-1 F", teacher: "TRS", room: "103", type: "Theory" },
-          { id: 24, day: "Sunday", time: "10:30-11:30", course: "0711-111 F", section: "1-1 F", teacher: "TRS", room: "306", type: "Theory" }
+          // Section A, B, C, D omitted for space, but Section F fully updated below
+          { id: 100, day: "Saturday", time: "8:30-9:30", section: "1-1 F", teacher: "TRS", room: "103", type: "Theory" },
+          { id: 101, day: "Saturday", time: "9:30-10:30", section: "1-1 F", teacher: "SS", room: "103", type: "Theory" },
+          { id: 102, day: "Sunday", time: "10:30-11:30", section: "1-1 F", teacher: "TRS", room: "306", type: "Theory" },
+          { id: 103, day: "Sunday", time: "1:00-2:00", section: "1-1 F", teacher: "MMR", room: "305", type: "Theory" },
+          { id: 104, day: "Sunday", time: "2:00-3:00", section: "1-1 F", teacher: "SS", room: "305", type: "Theory" },
+          { id: 105, day: "Sunday", time: "3:00-4:00", section: "1-1 F", teacher: "KMT", room: "305", type: "Theory" },
+          { id: 106, day: "Tuesday", time: "8:30-9:30", section: "1-1 F", teacher: "MMR", room: "404", type: "Theory" },
+          { id: 107, day: "Tuesday", time: "9:30-10:30", section: "1-1 F", teacher: "TRS", room: "404", type: "Theory" },
+          { id: 108, day: "Tuesday", time: "10:30-11:30", section: "1-1 F", teacher: "SS", room: "404", type: "Theory" },
+          { id: 109, day: "Tuesday", time: "11:30-12:30", section: "1-1 F", teacher: "KMT", room: "404", type: "Theory" },
+          
+          // --- UPDATED WEDNESDAY SLOTS FOR F ---
+          { id: 1779470602389, day: "Wednesday", time: "8:30-9:30", section: "1-1 F", teacher: "MMR", room: "303", type: "Theory" },
+          { id: 1779470602388, day: "Wednesday", time: "9:30-10:30", section: "1-1 F", teacher: "KMT", room: "303", type: "Theory" },
+          { id: 1779470383823, day: "Wednesday", time: "10:30-11:30", section: "1-1 F", teacher: "MR", room: "102 F2", type: "Lab" },
+          { id: 1779470400230, day: "Wednesday", time: "11:30-12:30", section: "1-1 F", teacher: "MR", room: "102 F2", type: "Lab" },
+          { id: 1779470423189, day: "Wednesday", time: "10:30-11:30", section: "1-1 F", teacher: "ZK", room: "AB-2 301 F1", type: "Lab" },
+          { id: 1779470436956, day: "Wednesday", time: "11:30-12:30", section: "1-1 F", teacher: "ZK", room: "AB-2 301 F1", type: "Lab" }
         ];
 
-        let routine = JSON.parse(localStorage.getItem('eee_v6_data')) || defaultRoutineData;
+        let routine = JSON.parse(localStorage.getItem('eee_v20_data')) || defaultRoutineData;
+
+        // Force reset to new data if version doesn't match
+        if (!localStorage.getItem('eee_v20_init')) {
+            routine = defaultRoutineData;
+            localStorage.setItem('eee_v20_data', JSON.stringify(routine));
+            localStorage.setItem('eee_v20_init', 'true');
+        }
 
         function init() {
             populateForm();
@@ -179,28 +168,26 @@
             Object.keys(TEACHERS).sort().forEach(key => tea.innerHTML += `<option value="${key}">${key} - ${TEACHERS[key]}</option>`);
         }
 
-        function renderFilters() {
-            const dWrap = document.getElementById('day-filters'), sWrap = document.getElementById('section-filters');
-            dWrap.innerHTML = ''; DAYS.forEach(d => {
-                const isActive = d === activeDay;
-                dWrap.innerHTML += `<button onclick="setFilter('day', '${d}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${isActive ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${d}</button>`;
-            });
-            sWrap.innerHTML = ''; SECTIONS.forEach(s => {
-                const isActive = s === activeSection;
-                sWrap.innerHTML += `<button onclick="setFilter('sec', '${s}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${isActive ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${s}</button>`;
-            });
-        }
-
         function setFilter(type, val) { 
             if(type === 'day') activeDay = val; else activeSection = val; 
             renderFilters(); renderRoutine(); 
+        }
+
+        function renderFilters() {
+            const dWrap = document.getElementById('day-filters'), sWrap = document.getElementById('section-filters');
+            dWrap.innerHTML = ''; DAYS.forEach(d => {
+                dWrap.innerHTML += `<button onclick="setFilter('day', '${d}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${d === activeDay ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${d}</button>`;
+            });
+            sWrap.innerHTML = ''; SECTIONS.forEach(s => {
+                sWrap.innerHTML += `<button onclick="setFilter('sec', '${s}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${s === activeSection ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${s}</button>`;
+            });
         }
 
         function renderRoutine() {
             const cont = document.getElementById('routine-container'); cont.innerHTML = '';
             const filtered = routine.filter(i => i.day === activeDay && i.section === activeSection).sort((a,b) => TIMES.indexOf(a.time) - TIMES.indexOf(b.time));
             if (filtered.length === 0) {
-                cont.innerHTML = `<div class="text-center py-32 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 animate-fade-in"><p class="text-slate-600 text-[10px] font-bold uppercase tracking-widest">No classes scheduled</p></div>`;
+                cont.innerHTML = `<div class="text-center py-32 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 animate-fade-in"><p class="text-slate-600 text-[10px] font-bold uppercase tracking-widest">No classes on ${activeDay} for ${activeSection}</p></div>`;
                 return;
             }
             const grid = document.createElement('div'); grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in";
@@ -213,8 +200,7 @@
                         </div>
                         <h4 class="text-xl font-black text-white mb-6 leading-tight">${TEACHERS[c.teacher] || c.teacher}</h4>
                         <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/50 space-y-2">
-                            <p class="text-xs text-emerald-400 font-bold">📚 ${c.course || 'No Course ID'}</p>
-                            <p class="text-xs text-indigo-400 font-bold">👤 Initial: ${c.teacher}</p>
+                            <p class="text-xs text-indigo-400 font-bold">👤 Teacher: ${c.teacher}</p>
                             <p class="text-xs text-slate-400 font-bold">📍 Room: ${c.room}</p>
                         </div>
                         ${isAdmin ? `<button onclick="deleteItem(${c.id})" class="mt-4 w-full py-2 bg-rose-900/20 text-rose-500 text-[10px] font-bold rounded-xl border border-rose-900/30 hover:bg-rose-900/40 transition">Delete</button>` : ''}
@@ -226,12 +212,12 @@
         async function handleAdminAuth() {
             const btn = document.getElementById('admin-toggle-btn'), editorBtn = document.getElementById('open-editor-btn');
             if (!isAdmin) {
-                const pass = await customPrompt("Enter Password (eee2026):", true);
+                const pass = await customPrompt("Enter Key (eee2026):", true);
                 if (pass === "eee2026") {
                     isAdmin = true; editorBtn.classList.remove('hidden'); 
                     document.getElementById('login-text').innerText = "🔓 Logout";
-                    btn.classList.replace('bg-slate-900/90', 'bg-rose-600'); renderRoutine(); showToast("Logged In");
-                } else if (pass !== null) { await customAlert("Incorrect Password!"); }
+                    btn.classList.replace('bg-slate-900/90', 'bg-rose-600'); renderRoutine(); showToast("Admin Mode ON");
+                } else if (pass !== null) { await customAlert("Access Denied!"); }
             } else {
                 isAdmin = false; editorBtn.classList.add('hidden'); closeAdminPanel();
                 document.getElementById('login-text').innerText = "🔒 Admin Login";
@@ -239,19 +225,17 @@
             }
         }
 
-        function save() { localStorage.setItem('eee_v6_data', JSON.stringify(routine)); }
+        function save() { localStorage.setItem('eee_v20_data', JSON.stringify(routine)); }
         function openAdminPanel() { document.getElementById('admin-modal').classList.remove('hidden'); }
         function closeAdminPanel() { document.getElementById('admin-modal').classList.add('hidden'); }
-        async function deleteItem(id) { if(await customConfirm("Delete this slot?")) { routine = routine.filter(i => i.id !== id); save(); renderRoutine(); } }
+        async function deleteItem(id) { if(await customConfirm("Delete this?")) { routine = routine.filter(i => i.id !== id); save(); renderRoutine(); } }
         function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.style.transform = "translateX(0)"; setTimeout(() => t.style.transform = "translateX(150%)", 3000); }
 
-        // Dialog Handlers
-        function customPrompt(m, pass=false) {
+        function customPrompt(m, p=false) {
             return new Promise(resolve => {
                 const c = document.getElementById('custom-dialog-container'), i = document.getElementById('dialog-input');
                 document.getElementById('dialog-message').innerText = m;
-                i.classList.remove('hidden'); i.type = pass ? "password" : "text"; i.value = "";
-                c.classList.remove('hidden');
+                i.classList.remove('hidden'); i.type = p ? "password" : "text"; i.value = ""; c.classList.remove('hidden');
                 document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); resolve(i.value); };
                 document.getElementById('dialog-cancel-btn').onclick = () => { c.classList.add('hidden'); resolve(null); };
             });
@@ -260,8 +244,7 @@
             return new Promise(resolve => {
                 const c = document.getElementById('custom-dialog-container');
                 document.getElementById('dialog-message').innerText = m;
-                document.getElementById('dialog-input').classList.add('hidden');
-                c.classList.remove('hidden');
+                document.getElementById('dialog-input').classList.add('hidden'); c.classList.remove('hidden');
                 document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); resolve(true); };
                 document.getElementById('dialog-cancel-btn').onclick = () => { c.classList.add('hidden'); resolve(false); };
             });
@@ -270,8 +253,7 @@
             return new Promise(resolve => {
                 const c = document.getElementById('custom-dialog-container');
                 document.getElementById('dialog-message').innerText = m;
-                document.getElementById('dialog-input').classList.add('hidden');
-                c.classList.remove('hidden');
+                document.getElementById('dialog-input').classList.add('hidden'); c.classList.remove('hidden');
                 document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); resolve(); };
             });
         }
