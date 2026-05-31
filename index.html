@@ -17,10 +17,8 @@
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans antialiased">
 
-    <!-- Toast Notification -->
     <div id="toast" class="fixed top-5 right-5 z-[110] transform translate-x-full transition-transform duration-300 bg-indigo-600 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold pointer-events-none"></div>
 
-    <!-- Header -->
     <header class="relative bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-950 border-b border-indigo-950 px-4 py-10 sm:px-8 shadow-2xl print-hidden">
         <div class="relative max-w-7xl mx-auto text-center md:text-left">
             <div class="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-400/20 px-3.5 py-1 rounded-full text-indigo-300 text-[10px] font-bold uppercase tracking-widest mb-3">
@@ -31,7 +29,6 @@
     </header>
 
     <main class="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 flex-grow pb-24">
-        <!-- NAVIGATION FILTERS -->
         <section class="bg-slate-900 border border-slate-900 rounded-3xl shadow-xl p-6 space-y-6 print-hidden">
             <div>
                 <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-3">📅 Select Weekday:</span>
@@ -42,8 +39,6 @@
                 <div id="section-filters" class="flex flex-wrap gap-2"></div>
             </div>
         </section>
-
-        <!-- ROUTINE DISPLAY -->
         <div id="routine-container"></div>
     </main>
 
@@ -66,18 +61,10 @@
                 </select>
                 <button type="submit" class="bg-emerald-600 text-white font-bold rounded-xl py-3 shadow-lg hover:bg-emerald-500 transition">Add Slot</button>
             </form>
-            <div class="pt-6 border-t border-slate-800">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Backup & Data Tools</h3>
-                <div class="flex flex-wrap gap-4">
-                    <button onclick="copyData()" class="bg-indigo-950/40 border border-indigo-900 hover:bg-indigo-900/40 text-indigo-400 text-[10px] font-bold uppercase px-4 py-2.5 rounded-xl transition">📋 Copy Backup Code</button>
-                    <button onclick="importDataPrompt()" class="bg-indigo-950/40 border border-indigo-900 hover:bg-indigo-900/40 text-indigo-400 text-[10px] font-bold uppercase px-4 py-2.5 rounded-xl transition">📥 Import Backup Code</button>
-                    <button onclick="clearRoutine()" class="text-rose-400 hover:text-rose-300 text-[10px] font-bold uppercase px-4 py-2.5">🗑️ Erase All Data</button>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- CUSTOM DIALOG MODAL -->
+    <!-- CUSTOM DIALOG -->
     <div id="custom-dialog-container" class="fixed inset-0 z-[200] hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-indigo-500/30 rounded-3xl w-full max-w-sm p-6 shadow-2xl text-center space-y-4 animate-fade-in">
             <div id="dialog-icon" class="text-3xl">🔑</div>
@@ -91,21 +78,10 @@
         </div>
     </div>
 
-    <!-- FLOATING ACTION BAR -->
     <div id="action-bar" class="fixed bottom-0 left-0 w-full p-6 flex justify-center gap-4 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent print-hidden z-[90]">
-        <button id="open-editor-btn" onclick="openAdminPanel()" class="hidden bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all">
-            <span>➕ Open Editor</span>
-        </button>
-        <button onclick="handleAdminAuth()" id="admin-toggle-btn" class="bg-slate-900/90 backdrop-blur border border-slate-800 text-slate-400 hover:text-white px-8 py-3 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all">
-            <span id="login-text">🔒 Admin Login</span>
-        </button>
+        <button id="open-editor-btn" onclick="openAdminPanel()" class="hidden bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-2xl text-xs font-bold shadow-2xl transition-all">➕ Open Editor</button>
+        <button onclick="handleAdminAuth()" id="admin-toggle-btn" class="bg-slate-900/90 border border-slate-800 text-slate-400 px-8 py-3 rounded-2xl text-xs font-bold shadow-2xl"><span id="login-text">🔒 Admin Login</span></button>
     </div>
-
-    <footer class="w-full text-center py-6 border-t border-slate-900 text-slate-600 text-xs font-bold tracking-widest uppercase print-hidden mt-auto">
-         <p class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.1em]">
-             Powered by <a href="https://khpartho623.github.io/me/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">Md. Kamrul Hasan</a>
-         </p>
-    </footer>
 
     <script>
         const DAYS = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
@@ -118,34 +94,142 @@
         let activeSection = "1-1 A";
 
         const defaultRoutineData = [
-          // Section A, B, C, D omitted for space, but Section F fully updated below
-          { id: 100, day: "Saturday", time: "8:30-9:30", section: "1-1 F", teacher: "TRS", room: "103", type: "Theory" },
-          { id: 101, day: "Saturday", time: "9:30-10:30", section: "1-1 F", teacher: "SS", room: "103", type: "Theory" },
-          { id: 102, day: "Sunday", time: "10:30-11:30", section: "1-1 F", teacher: "TRS", room: "306", type: "Theory" },
-          { id: 103, day: "Sunday", time: "1:00-2:00", section: "1-1 F", teacher: "MMR", room: "305", type: "Theory" },
-          { id: 104, day: "Sunday", time: "2:00-3:00", section: "1-1 F", teacher: "SS", room: "305", type: "Theory" },
-          { id: 105, day: "Sunday", time: "3:00-4:00", section: "1-1 F", teacher: "KMT", room: "305", type: "Theory" },
-          { id: 106, day: "Tuesday", time: "8:30-9:30", section: "1-1 F", teacher: "MMR", room: "404", type: "Theory" },
-          { id: 107, day: "Tuesday", time: "9:30-10:30", section: "1-1 F", teacher: "TRS", room: "404", type: "Theory" },
-          { id: 108, day: "Tuesday", time: "10:30-11:30", section: "1-1 F", teacher: "SS", room: "404", type: "Theory" },
-          { id: 109, day: "Tuesday", time: "11:30-12:30", section: "1-1 F", teacher: "KMT", room: "404", type: "Theory" },
-          
-          // --- UPDATED WEDNESDAY SLOTS FOR F ---
-          { id: 1779470602389, day: "Wednesday", time: "8:30-9:30", section: "1-1 F", teacher: "MMR", room: "303", type: "Theory" },
-          { id: 1779470602388, day: "Wednesday", time: "9:30-10:30", section: "1-1 F", teacher: "KMT", room: "303", type: "Theory" },
-          { id: 1779470383823, day: "Wednesday", time: "10:30-11:30", section: "1-1 F", teacher: "MR", room: "102 F2", type: "Lab" },
-          { id: 1779470400230, day: "Wednesday", time: "11:30-12:30", section: "1-1 F", teacher: "MR", room: "102 F2", type: "Lab" },
-          { id: 1779470423189, day: "Wednesday", time: "10:30-11:30", section: "1-1 F", teacher: "ZK", room: "AB-2 301 F1", type: "Lab" },
-          { id: 1779470436956, day: "Wednesday", time: "11:30-12:30", section: "1-1 F", teacher: "ZK", room: "AB-2 301 F1", type: "Lab" }
+          // SECTION A
+          { "id": 1779378657521, "day": "Saturday", "time": "10:30-11:30", "course": "0533-111 A", "section": "1-1 A", "teacher": "SAT", "room": "402", "type": "Theory" },
+          { "id": 1779378657522, "day": "Saturday", "time": "9:30-10:30", "course": "0541-113 A", "section": "1-1 A", "teacher": "HRP", "room": "402", "type": "Theory" },
+          { "id": 1779378657523, "day": "Saturday", "time": "1:00-2:00", "course": "0231-112 A2", "section": "1-1 A", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657524, "day": "Saturday", "time": "2:00-3:00", "course": "0231-112 A2", "section": "1-1 A", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657525, "day": "Saturday", "time": "1:00-2:00", "course": "0533-112 A1", "section": "1-1 A", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657526, "day": "Saturday", "time": "2:00-3:00", "course": "0533-112 A1", "section": "1-1 A", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657527, "day": "Monday", "time": "8:30-9:30", "course": "0533-111 A", "section": "1-1 A", "teacher": "SAT", "room": "303", "type": "Theory" },
+          { "id": 1779378657528, "day": "Monday", "time": "9:30-10:30", "course": "0713-111 A", "section": "1-1 A", "teacher": "MRK", "room": "303", "type": "Theory" },
+          { "id": 1779378657529, "day": "Monday", "time": "10:30-11:30", "course": "0541-111 A", "section": "1-1 A", "teacher": "SDN", "room": "303", "type": "Theory" },
+          { "id": 1779378657530, "day": "Monday", "time": "1:00-2:00", "course": "0231-112 A1", "section": "1-1 A", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657531, "day": "Monday", "time": "2:00-3:00", "course": "0231-112 A1", "section": "1-1 A", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657532, "day": "Monday", "time": "1:00-2:00", "course": "0533-112 A2", "section": "1-1 A", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657533, "day": "Monday", "time": "2:00-3:00", "course": "0533-112 A2", "section": "1-1 A", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657534, "day": "Tuesday", "time": "8:30-9:30", "course": "0533-111 A", "section": "1-1 A", "teacher": "SAT", "room": "303", "type": "Theory" },
+          { "id": 1779378657535, "day": "Tuesday", "time": "9:30-10:30", "course": "0541-113 A", "section": "1-1 A", "teacher": "HRP", "room": "303", "type": "Theory" },
+          { "id": 1779378657536, "day": "Tuesday", "time": "10:30-11:30", "course": "0713-111 A", "section": "1-1 A", "teacher": "MRK", "room": "303", "type": "Theory" },
+          { "id": 1779378657537, "day": "Tuesday", "time": "11:30-12:30", "course": "0541-111 A", "section": "1-1 A", "teacher": "SDN", "room": "303", "type": "Theory" },
+          { "id": 1779378657538, "day": "Wednesday", "time": "1:00-2:00", "course": "0713-111 A", "section": "1-1 A", "teacher": "MRK", "room": "404", "type": "Theory" },
+          { "id": 1779378657539, "day": "Wednesday", "time": "2:00-3:00", "course": "0541-111 A", "section": "1-1 A", "teacher": "SDN", "room": "404", "type": "Theory" },
+          { "id": 1779378657540, "day": "Wednesday", "time": "3:00-4:00", "course": "0541-113 A", "section": "1-1 A", "teacher": "HRP", "room": "404", "type": "Theory" },
+          // SECTION B
+          { "id": 1779378657541, "day": "Saturday", "time": "8:30-9:30", "course": "0231-112 B2", "section": "1-1 B", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657542, "day": "Saturday", "time": "9:30-10:30", "course": "0231-112 B2", "section": "1-1 B", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657545, "day": "Saturday", "time": "8:30-9:30", "course": "0533-112 B1", "section": "1-1 B", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657546, "day": "Saturday", "time": "9:30-10:30", "course": "0533-112 B1", "section": "1-1 B", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657543, "day": "Saturday", "time": "10:30-11:30", "course": "0541-113 B", "section": "1-1 B", "teacher": "HRP", "room": "303", "type": "Theory" },
+          { "id": 1779378657544, "day": "Saturday", "time": "11:30-12:30", "course": "0533-111 B", "section": "1-1 B", "teacher": "SAT", "room": "303", "type": "Theory" },
+          { "id": 1779378657547, "day": "Monday", "time": "8:30-9:30", "course": "0541-111 B", "section": "1-1 B", "teacher": "SDN", "room": "304", "type": "Theory" },
+          { "id": 1779378657548, "day": "Monday", "time": "9:30-10:30", "course": "0533-111 B", "section": "1-1 B", "teacher": "SAT", "room": "304", "type": "Theory" },
+          { "id": 1779378657549, "day": "Monday", "time": "10:30-11:30", "course": "0713-111 B", "section": "1-1 B", "teacher": "MRK", "room": "304", "type": "Theory" },
+          { "id": 1779378657550, "day": "Monday", "time": "11:30-12:30", "course": "0541-113 B", "section": "1-1 B", "teacher": "HRP", "room": "304", "type": "Theory" },
+          { "id": 1779378657553, "day": "Tuesday", "time": "1:00-2:00", "course": "0713-111 B", "section": "1-1 B", "teacher": "MRK", "room": "303", "type": "Theory" },
+          { "id": 1779378657554, "day": "Tuesday", "time": "2:00-3:00", "course": "0541-111 B", "section": "1-1 B", "teacher": "SDN", "room": "303", "type": "Theory" },
+          { "id": 1779378657555, "day": "Tuesday", "time": "3:00-4:00", "course": "0541-113 B", "section": "1-1 B", "teacher": "HRP", "room": "303", "type": "Theory" },
+          { "id": 1779378657556, "day": "Tuesday", "time": "10:30-11:30", "course": "0231-112 B1", "section": "1-1 B", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657557, "day": "Tuesday", "time": "11:30-12:30", "course": "0231-112 B1", "section": "1-1 B", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657558, "day": "Tuesday", "time": "10:30-11:30", "course": "0533-112 B2", "section": "1-1 B", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657559, "day": "Tuesday", "time": "11:30-12:30", "course": "0533-112 B2", "section": "1-1 B", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657562, "day": "Wednesday", "time": "1:00-2:00", "course": "0533-111 B", "section": "1-1 B", "teacher": "SAT", "room": "406", "type": "Theory" },
+          { "id": 1779378657563, "day": "Wednesday", "time": "2:00-3:00", "course": "0713-111 B", "section": "1-1 B", "teacher": "MRK", "room": "406", "type": "Theory" },
+          { "id": 1779378657564, "day": "Wednesday", "time": "3:00-4:00", "course": "0541-111 B", "section": "1-1 B", "teacher": "SDN", "room": "406", "type": "Theory" },
+          // SECTION C
+          { "id": 1779378657565, "day": "Saturday", "time": "1:00-2:00", "course": "0541-113 C", "section": "1-1 C", "teacher": "HRP", "room": "405", "type": "Theory" },
+          { "id": 1779378657566, "day": "Saturday", "time": "2:00-3:00", "course": "0533-111 C", "section": "1-1 C", "teacher": "SAT", "room": "405", "type": "Theory" },
+          { "id": 1779378657567, "day": "Saturday", "time": "3:00-4:00", "course": "0713-111 C", "section": "1-1 C", "teacher": "MRK", "room": "405", "type": "Theory" },
+          { "id": 1779378657568, "day": "Saturday", "time": "11:30-12:30", "course": "0541-111 C", "section": "1-1 C", "teacher": "SDN", "room": "405", "type": "Theory" },
+          { "id": 1779378657569, "day": "Sunday", "time": "9:30-10:30", "course": "0231-112 C2", "section": "1-1 C", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657570, "day": "Sunday", "time": "10:30-11:30", "course": "0231-112 C2", "section": "1-1 C", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657574, "day": "Sunday", "time": "9:30-10:30", "course": "0533-112 C1", "section": "1-1 C", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657575, "day": "Sunday", "time": "10:30-11:30", "course": "0533-112 C1", "section": "1-1 C", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657571, "day": "Sunday", "time": "1:00-2:00", "course": "0541-111 C", "section": "1-1 C", "teacher": "SDN", "room": "303", "type": "Theory" },
+          { "id": 1779378657572, "day": "Sunday", "time": "2:00-3:00", "course": "0713-111 C", "section": "1-1 C", "teacher": "MRK", "room": "303", "type": "Theory" },
+          { "id": 1779378657573, "day": "Sunday", "time": "3:00-4:00", "course": "0541-113 C", "section": "1-1 C", "teacher": "HRP", "room": "303", "type": "Theory" },
+          { "id": 17793786575781, "day": "Monday", "time": "1:00-2:00", "section": "1-1 C", "teacher": "SAT", "room": "303", "type": "Theory" },
+          { "id": 17793786575782, "day": "Monday", "time": "2:00-3:00", "section": "1-1 C", "teacher": "MRK", "room": "303", "type": "Theory" },
+          { "id": 17793786575783, "day": "Monday", "time": "3:00-4:00", "course": "0541-111 C", "section": "1-1 C", "teacher": "SDN", "room": "303", "type": "Theory" },
+          { "id": 1779378657581, "day": "Tuesday", "time": "10:30-11:30", "course": "0533-111 C", "section": "1-1 C", "teacher": "SAT", "room": "301", "type": "Theory" },
+          { "id": 1779378657582, "day": "Tuesday", "time": "11:30-12:30", "course": "0541-113 C", "section": "1-1 C", "teacher": "HRP", "room": "3011", "type": "Theory" },
+          { "id": 1779378657583, "day": "Tuesday", "time": "8:30-9:30", "course": "0231-112 C1", "section": "1-1 C", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657584, "day": "Tuesday", "time": "9:30-10:30", "course": "0231-112 C1", "section": "1-1 C", "teacher": "MR", "room": "102", "type": "Lab" },
+          { "id": 1779378657585, "day": "Tuesday", "time": "8:30-9:30", "course": "0533-112 C2", "section": "1-1 C", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          { "id": 1779378657586, "day": "Tuesday", "time": "8:30-9:30", "course": "0533-112 C2", "section": "1-1 C", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
+          // SECTION D
+          { "id": 1779468610899, "day": "Saturday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "SDN", "room": "302", "type": "Theory" },
+          { "id": 1779468638058, "day": "Saturday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "MRK", "room": "302", "type": "Theory" },
+          { "id": 1779468658311, "day": "Saturday", "time": "3:00-4:00", "section": "1-1 D", "teacher": "HRP", "room": "302", "type": "Theory" },
+          { "id": 1779468699225, "day": "Sunday", "time": "8:30-9:30", "section": "1-1 D", "teacher": "MMR", "room": "304", "type": "Theory" },
+          { "id": 1779468715218, "day": "Sunday", "time": "9:30-10:30", "section": "1-1 D", "teacher": "SDN", "room": "304", "type": "Theory" },
+          { "id": 1779468736884, "day": "Sunday", "time": "10:30-11:30", "section": "1-1 D", "teacher": "MRK", "room": "304", "type": "Theory" },
+          { "id": 1779468762294, "day": "Sunday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "MR", "room": "102 D2", "type": "Lab" },
+          { "id": 1779468781911, "day": "Sunday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "MR", "room": "102 D2", "type": "Lab" },
+          { "id": 1779468815945, "day": "Sunday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "ZK", "room": "AB-2 301 D1", "type": "Lab" },
+          { "id": 1779468835849, "day": "Sunday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "ZK", "room": "AB-2 301 D1", "type": "Lab" },
+          { "id": 1779468887271, "day": "Tuesday", "time": "11:30-12:30", "section": "1-1 D", "teacher": "MMR", "room": "305", "type": "Theory" },
+          { "id": 1779468907309, "day": "Tuesday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "SDN", "room": "406", "type": "Theory" },
+          { "id": 1779468927540, "day": "Tuesday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "HRP", "room": "406", "type": "Theory" },
+          { "id": 1779468949992, "day": "Tuesday", "time": "3:00-4:00", "section": "1-1 D", "teacher": "MRK", "room": "406", "type": "Theory" },
+          { "id": 1779469032070, "day": "Wednesday", "time": "10:30-11:30", "section": "1-1 D", "teacher": "MMR", "room": "103", "type": "Theory" },
+          { "id": 1779469050675, "day": "Wednesday", "time": "11:30-12:30", "section": "1-1 D", "teacher": "HRP", "room": "103", "type": "Theory" },
+          { "id": 1779469068602, "day": "Wednesday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "MR", "room": "102 D1", "type": "Lab" },
+          { "id": 1779469084150, "day": "Wednesday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "MR", "room": "102 D1", "type": "Lab" },
+          { "id": 1779469106511, "day": "Wednesday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "ZK", "room": "AB-2 301 D2", "type": "Lab" },
+          { "id": 1779469123966, "day": "Wednesday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "ZK", "room": "AB-2 301 D2", "type": "Lab" },
+          // SECTION E
+          { "id": 1779469693950, "day": "Saturday", "time": "11:30-12:30", "section": "1-1 E", "teacher": "TRS", "room": "404", "type": "Theory" },
+          { "id": 1779469714367, "day": "Saturday", "time": "1:00-2:00", "section": "1-1 E", "teacher": "SS", "room": "306", "type": "Theory" },
+          { "id": 1779469747081, "day": "Saturday", "time": "2:00-3:00", "section": "1-1 E", "teacher": "KMT", "room": "306", "type": "Theory" },
+          { "id": 1779469771655, "day": "Saturday", "time": "3:00-4:00", "section": "1-1 E", "teacher": "MR", "room": "306 E2", "type": "Theory" },
+          { "id": 1779469803940, "day": "Monday", "time": "10:30-11:30", "section": "1-1 E", "teacher": "MR", "room": "102 E1", "type": "Lab" },
+          { "id": 1779469820228, "day": "Monday", "time": "11:30-12:30", "section": "1-1 E", "teacher": "MR", "room": "102 E1", "type": "Lab" },
+          { "id": 1779469848155, "day": "Monday", "time": "10:30-11:30", "section": "1-1 E", "teacher": "ZK", "room": "AB-2 301 E2", "type": "Lab" },
+          { "id": 1779469870593, "day": "Monday", "time": "11:30-12:30", "section": "1-1 E", "teacher": "ZK", "room": "AB-2 301 E2", "type": "Lab" },
+          { "id": 1779469894879, "day": "Monday", "time": "1:00-2:00", "section": "1-1 E", "teacher": "TRS", "room": "406", "type": "Theory" },
+          { "id": 1779469908068, "day": "Monday", "time": "2:00-3:00", "section": "1-1 E", "teacher": "SS", "room": "406", "type": "Theory" },
+          { "id": 1779469926972, "day": "Monday", "time": "3:00-4:00", "section": "1-1 E", "teacher": "MMR", "room": "406", "type": "Theory" },
+          { "id": 1779469952844, "day": "Tuesday", "time": "9:30-10:30", "section": "1-1 E", "teacher": "MMR", "room": "403", "type": "Theory" },
+          { "id": 1779469972842, "day": "Tuesday", "time": "10:30-11:30", "section": "1-1 E", "teacher": "KMT", "room": "403", "type": "Theory" },
+          { "id": 1779469998027, "day": "Tuesday", "time": "11:30-12:30", "section": "1-1 E", "teacher": "SS", "room": "403", "type": "Theory" },
+          { "id": 1779470028115, "day": "Tuesday", "time": "1:00-2:00", "section": "1-1 E", "teacher": "ZK", "room": "AB-2 301 E1", "type": "Lab" },
+          { "id": 1779470051541, "day": "Wednesday", "time": "1:00-2:00", "section": "1-1 E", "teacher": "TRS", "room": "103", "type": "Theory" },
+          { "id": 1779470068263, "day": "Wednesday", "time": "2:00-3:00", "section": "1-1 E", "teacher": "KMT", "room": "103", "type": "Theory" },
+          { "id": 1779470846855, "day": "Wednesday", "time": "3:00-4:00", "section": "1-1 E", "teacher": "MMR", "room": "103", "type": "Theory" },
+          // SECTION F
+          { "id": 1779470332085, "day": "Saturday", "time": "8:30-9:30", "section": "1-1 F", "teacher": "TRS", "room": "103", "type": "Theory" },
+          { "id": 1779470347160, "day": "Saturday", "time": "9:30-10:30", "section": "1-1 F", "teacher": "SS", "room": "103", "type": "Theory" },
+          { "id": 1779470383823, "day": "Saturday", "time": "10:30-11:30", "section": "1-1 F", "teacher": "MR", "room": "102 F1", "type": "Lab" },
+          { "id": 1779470400230, "day": "Saturday", "time": "11:30-12:30", "section": "1-1 F", "teacher": "MR", "room": "102 F1", "type": "Lab" },
+          { "id": 1779470423189, "day": "Saturday", "time": "10:30-11:30", "section": "1-1 F", "teacher": "ZK", "room": "AB-2 301 F2", "type": "Lab" },
+          { "id": 1779470436956, "day": "Saturday", "time": "11:30-12:30", "section": "1-1 F", "teacher": "ZK", "room": "AB-2 301 F2", "type": "Lab" },
+          { "id": 1779470463355, "day": "Sunday", "time": "10:30-11:30", "section": "1-1 F", "teacher": "TRS", "room": "306", "type": "Theory" },
+          { "id": 1779470480685, "day": "Sunday", "time": "1:00-2:00", "section": "1-1 F", "teacher": "MMR", "room": "305", "type": "Theory" },
+          { "id": 1779470513743, "day": "Sunday", "time": "2:00-3:00", "section": "1-1 F", "teacher": "SS", "room": "305", "type": "Theory" },
+          { "id": 17794705137435, "day": "Sunday", "time": "3:00-4:00", "section": "1-1 F", "teacher": "KMT", "room": "305", "type": "Theory" },
+          { "id": 1779470535385, "day": "Tuesday", "time": "8:30-9:30", "section": "1-1 F", "teacher": "MMR", "room": "404", "type": "Theory" },
+          { "id": 1779470551746, "day": "Tuesday", "time": "9:30-10:30", "section": "1-1 F", "teacher": "TRS", "room": "404", "type": "Theory" },
+          { "id": 1779470566271, "day": "Tuesday", "time": "10:30-11:30", "section": "1-1 F", "teacher": "SS", "room": "404", "type": "Theory" },
+          { "id": 1779470581524, "day": "Tuesday", "time": "11:30-12:30", "section": "1-1 F", "teacher": "KMT", "room": "404", "type": "Theory" },
+          { "id": 1779470602389, "day": "Wednesday", "time": "8:30-9:30", "section": "1-1 F", "teacher": "MMR", "room": "303", "type": "Theory" },
+          { "id": 1779470602388, "day": "Wednesday", "time": "9:30-10:30", "section": "1-1 F", "teacher": "KMT", "room": "303", "type": "Theory" },
+          { "id": 17794703838237, "day": "Wednesday", "time": "10:30-11:30", "section": "1-1 F", "teacher": "MR", "room": "102 F2", "type": "Lab" },
+          { "id": 17794704002308, "day": "Wednesday", "time": "11:30-12:30", "section": "1-1 F", "teacher": "MR", "room": "102 F2", "type": "Lab" },
+          { "id": 17794704231899, "day": "Wednesday", "time": "10:30-11:30", "section": "1-1 F", "teacher": "ZK", "room": "AB-2 301 F1", "type": "Lab" },
+          { "id": 17794704369560, "day": "Wednesday", "time": "11:30-12:30", "section": "1-1 F", "teacher": "ZK", "room": "AB-2 301 F1", "type": "Lab" }
         ];
 
-        let routine = JSON.parse(localStorage.getItem('eee_v20_data')) || defaultRoutineData;
+        // Database versioning to force clean load
+        const DB_KEY = 'eee_routine_v25_data';
+        const INIT_KEY = 'eee_v25_initialized';
 
-        // Force reset to new data if version doesn't match
-        if (!localStorage.getItem('eee_v20_init')) {
+        let routine = JSON.parse(localStorage.getItem(DB_KEY)) || defaultRoutineData;
+
+        if (!localStorage.getItem(INIT_KEY)) {
             routine = defaultRoutineData;
-            localStorage.setItem('eee_v20_data', JSON.stringify(routine));
-            localStorage.setItem('eee_v20_init', 'true');
+            localStorage.setItem(DB_KEY, JSON.stringify(routine));
+            localStorage.setItem(INIT_KEY, 'true');
         }
 
         function init() {
@@ -156,7 +240,7 @@
                 e.preventDefault();
                 const newItem = { id: Date.now(), day: document.getElementById('f-day').value, time: document.getElementById('f-time').value, section: document.getElementById('f-section').value, teacher: document.getElementById('f-teacher').value, room: document.getElementById('f-room').value, type: document.getElementById('f-type').value };
                 routine.push(newItem);
-                save(); renderRoutine(); e.target.reset(); showToast("Slot added!");
+                save(); renderRoutine(); e.target.reset(); showToast("Slot Added");
             });
         }
 
@@ -165,98 +249,55 @@
             DAYS.forEach(day => d.innerHTML += `<option value="${day}">${day}</option>`);
             TIMES.forEach(time => t.innerHTML += `<option value="${time}">${time}</option>`);
             SECTIONS.forEach(sec => s.innerHTML += `<option value="${sec}">${sec}</option>`);
-            Object.keys(TEACHERS).sort().forEach(key => tea.innerHTML += `<option value="${key}">${key} - ${TEACHERS[key]}</option>`);
-        }
-
-        function setFilter(type, val) { 
-            if(type === 'day') activeDay = val; else activeSection = val; 
-            renderFilters(); renderRoutine(); 
+            Object.keys(TEACHERS).sort().forEach(k => tea.innerHTML += `<option value="${k}">${k} - ${TEACHERS[k]}</option>`);
         }
 
         function renderFilters() {
-            const dWrap = document.getElementById('day-filters'), sWrap = document.getElementById('section-filters');
-            dWrap.innerHTML = ''; DAYS.forEach(d => {
-                dWrap.innerHTML += `<button onclick="setFilter('day', '${d}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${d === activeDay ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${d}</button>`;
-            });
-            sWrap.innerHTML = ''; SECTIONS.forEach(s => {
-                sWrap.innerHTML += `<button onclick="setFilter('sec', '${s}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${s === activeSection ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${s}</button>`;
-            });
+            const dW = document.getElementById('day-filters'), sW = document.getElementById('section-filters');
+            dW.innerHTML = ''; DAYS.forEach(d => dW.innerHTML += `<button onclick="setFilter('day', '${d}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${d === activeDay ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${d}</button>`);
+            sW.innerHTML = ''; SECTIONS.forEach(s => sW.innerHTML += `<button onclick="setFilter('sec', '${s}')" class="px-4 py-2 rounded-xl text-[10px] font-bold border transition ${s === activeSection ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg' : 'bg-slate-950 border-slate-800 text-slate-500 hover:bg-slate-800'}">${s}</button>`);
         }
+
+        function setFilter(type, val) { type === 'day' ? activeDay = val : activeSection = val; renderFilters(); renderRoutine(); }
 
         function renderRoutine() {
             const cont = document.getElementById('routine-container'); cont.innerHTML = '';
             const filtered = routine.filter(i => i.day === activeDay && i.section === activeSection).sort((a,b) => TIMES.indexOf(a.time) - TIMES.indexOf(b.time));
-            if (filtered.length === 0) {
-                cont.innerHTML = `<div class="text-center py-32 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 animate-fade-in"><p class="text-slate-600 text-[10px] font-bold uppercase tracking-widest">No classes on ${activeDay} for ${activeSection}</p></div>`;
-                return;
-            }
+            if (filtered.length === 0) { cont.innerHTML = `<div class="text-center py-20 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800"><p class="text-slate-600 text-[10px] font-bold uppercase tracking-widest">No Class Today</p></div>`; return; }
             const grid = document.createElement('div'); grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in";
             filtered.forEach(c => {
-                grid.innerHTML += `
-                    <div class="bg-slate-900 border ${c.type === 'Lab' ? 'border-amber-500/30' : 'border-indigo-500/30'} p-6 rounded-3xl relative shadow-xl">
-                        <div class="flex justify-between items-center mb-5">
-                            <span class="text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase border ${c.type === 'Lab' ? 'border-amber-500/40 text-amber-500' : 'border-indigo-500/40 text-indigo-400'}">${c.type}</span>
-                            <p class="text-[11px] text-slate-500 font-black">🕒 ${c.time}</p>
-                        </div>
-                        <h4 class="text-xl font-black text-white mb-6 leading-tight">${TEACHERS[c.teacher] || c.teacher}</h4>
-                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/50 space-y-2">
-                            <p class="text-xs text-indigo-400 font-bold">👤 Teacher: ${c.teacher}</p>
-                            <p class="text-xs text-slate-400 font-bold">📍 Room: ${c.room}</p>
-                        </div>
-                        ${isAdmin ? `<button onclick="deleteItem(${c.id})" class="mt-4 w-full py-2 bg-rose-900/20 text-rose-500 text-[10px] font-bold rounded-xl border border-rose-900/30 hover:bg-rose-900/40 transition">Delete</button>` : ''}
-                    </div>`;
+                grid.innerHTML += `<div class="bg-slate-900 border ${c.type === 'Lab' ? 'border-amber-500/30' : 'border-indigo-500/30'} p-6 rounded-3xl relative shadow-xl hover:translate-y-[-4px] transition">
+                    <div class="flex justify-between items-center mb-5"><span class="text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase border ${c.type === 'Lab' ? 'border-amber-500/40 text-amber-500' : 'border-indigo-500/40 text-indigo-400'}">${c.type}</span><p class="text-[11px] text-slate-500 font-black">🕒 ${c.time}</p></div>
+                    <h4 class="text-lg font-black text-white mb-6 leading-tight">${TEACHERS[c.teacher] || c.teacher}</h4>
+                    <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/50 space-y-2">
+                        ${c.course ? `<p class="text-xs text-emerald-400 font-bold">📚 ${c.course}</p>` : ''}
+                        <p class="text-xs text-indigo-400 font-bold">👤 Initial: ${c.teacher}</p>
+                        <p class="text-xs text-slate-400 font-bold">📍 Room: ${c.room}</p>
+                    </div>
+                    ${isAdmin ? `<button onclick="deleteItem(${c.id})" class="mt-4 w-full py-2 bg-rose-900/20 text-rose-500 text-[10px] font-bold rounded-xl border border-rose-900/30">Delete</button>` : ''}
+                </div>`;
             });
             cont.appendChild(grid);
         }
 
         async function handleAdminAuth() {
-            const btn = document.getElementById('admin-toggle-btn'), editorBtn = document.getElementById('open-editor-btn');
+            const btn = document.getElementById('admin-toggle-btn'), edBtn = document.getElementById('open-editor-btn');
             if (!isAdmin) {
-                const pass = await customPrompt("Enter Key (eee2026):", true);
-                if (pass === "eee2026") {
-                    isAdmin = true; editorBtn.classList.remove('hidden'); 
-                    document.getElementById('login-text').innerText = "🔓 Logout";
-                    btn.classList.replace('bg-slate-900/90', 'bg-rose-600'); renderRoutine(); showToast("Admin Mode ON");
-                } else if (pass !== null) { await customAlert("Access Denied!"); }
-            } else {
-                isAdmin = false; editorBtn.classList.add('hidden'); closeAdminPanel();
-                document.getElementById('login-text').innerText = "🔒 Admin Login";
-                btn.classList.replace('bg-rose-600', 'bg-slate-900/90'); renderRoutine();
-            }
+                const pass = await customPrompt("Security Key Required:", true);
+                if (pass === "eee2026") { isAdmin = true; edBtn.classList.remove('hidden'); document.getElementById('login-text').innerText = "🔓 Logout"; btn.classList.replace('bg-slate-900/90', 'bg-rose-600'); renderRoutine(); showToast("Admin ON"); }
+                else if (pass !== null) { await customAlert("Incorrect Key!"); }
+            } else { isAdmin = false; edBtn.classList.add('hidden'); closeAdminPanel(); document.getElementById('login-text').innerText = "🔒 Admin Login"; btn.classList.replace('bg-rose-600', 'bg-slate-900/90'); renderRoutine(); }
         }
 
-        function save() { localStorage.setItem('eee_v20_data', JSON.stringify(routine)); }
+        function save() { localStorage.setItem(DB_KEY, JSON.stringify(routine)); }
         function openAdminPanel() { document.getElementById('admin-modal').classList.remove('hidden'); }
         function closeAdminPanel() { document.getElementById('admin-modal').classList.add('hidden'); }
-        async function deleteItem(id) { if(await customConfirm("Delete this?")) { routine = routine.filter(i => i.id !== id); save(); renderRoutine(); } }
+        async function deleteItem(id) { if(await customConfirm("Remove this slot?")) { routine = routine.filter(i => i.id !== id); save(); renderRoutine(); } }
         function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.style.transform = "translateX(0)"; setTimeout(() => t.style.transform = "translateX(150%)", 3000); }
 
-        function customPrompt(m, p=false) {
-            return new Promise(resolve => {
-                const c = document.getElementById('custom-dialog-container'), i = document.getElementById('dialog-input');
-                document.getElementById('dialog-message').innerText = m;
-                i.classList.remove('hidden'); i.type = p ? "password" : "text"; i.value = ""; c.classList.remove('hidden');
-                document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); resolve(i.value); };
-                document.getElementById('dialog-cancel-btn').onclick = () => { c.classList.add('hidden'); resolve(null); };
-            });
-        }
-        function customConfirm(m) {
-            return new Promise(resolve => {
-                const c = document.getElementById('custom-dialog-container');
-                document.getElementById('dialog-message').innerText = m;
-                document.getElementById('dialog-input').classList.add('hidden'); c.classList.remove('hidden');
-                document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); resolve(true); };
-                document.getElementById('dialog-cancel-btn').onclick = () => { c.classList.add('hidden'); resolve(false); };
-            });
-        }
-        function customAlert(m) {
-            return new Promise(resolve => {
-                const c = document.getElementById('custom-dialog-container');
-                document.getElementById('dialog-message').innerText = m;
-                document.getElementById('dialog-input').classList.add('hidden'); c.classList.remove('hidden');
-                document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); resolve(); };
-            });
-        }
+        function customPrompt(m, p=false) { return new Promise(res => { const c = document.getElementById('custom-dialog-container'), i = document.getElementById('dialog-input'); document.getElementById('dialog-message').innerText = m; i.classList.remove('hidden'); i.type = p ? "password" : "text"; i.value = ""; c.classList.remove('hidden'); document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); res(i.value); }; document.getElementById('dialog-cancel-btn').onclick = () => { c.classList.add('hidden'); res(null); }; }); }
+        function customConfirm(m) { return new Promise(res => { const c = document.getElementById('custom-dialog-container'); document.getElementById('dialog-message').innerText = m; document.getElementById('dialog-input').classList.add('hidden'); c.classList.remove('hidden'); document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); res(true); }; document.getElementById('dialog-cancel-btn').onclick = () => { c.classList.add('hidden'); res(false); }; }); }
+        function customAlert(m) { return new Promise(res => { const c = document.getElementById('custom-dialog-container'); document.getElementById('dialog-message').innerText = m; document.getElementById('dialog-input').classList.add('hidden'); c.classList.remove('hidden'); document.getElementById('dialog-confirm-btn').onclick = () => { c.classList.add('hidden'); res(); }; }); }
 
         init();
     </script>
