@@ -28,7 +28,7 @@
         </div>
     </header>
 
-    <main class="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 flex-grow pb-24">
+    <main class="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 flex-grow pb-12">
         <section class="bg-slate-900 border border-slate-900 rounded-3xl shadow-xl p-6 space-y-6 print-hidden">
             <div>
                 <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-3">📅 Select Weekday:</span>
@@ -78,12 +78,14 @@
         </div>
     </div>
 
-    <div id="action-bar" class="fixed bottom-0 left-0 w-full p-6 flex justify-center gap-4 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent print-hidden z-[90]">
+    <!-- ACTION BUTTONS ABOVE FOOTER -->
+    <div id="action-bar" class="w-full flex justify-center gap-4 py-6 bg-slate-950 print-hidden">
         <button id="open-editor-btn" onclick="openAdminPanel()" class="hidden bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-2xl text-xs font-bold shadow-2xl transition-all">➕ Open Editor</button>
-        <button onclick="handleAdminAuth()" id="admin-toggle-btn" class="bg-slate-900/90 border border-slate-800 text-slate-400 px-8 py-3 rounded-2xl text-xs font-bold shadow-2xl"><span id="login-text">🔒 Admin Login</span></button>
+        <button onclick="handleAdminAuth()" id="admin-toggle-btn" class="bg-slate-900 border border-slate-800 text-slate-400 px-8 py-3 rounded-2xl text-xs font-bold shadow-lg transition-colors"><span id="login-text">🔒 Admin Login</span></button>
     </div>   
+
     <!-- FOOTER SECTION -->
-    <footer class="w-full text-center py-6 border-t border-slate-900 text-slate-600 text-xs font-bold tracking-widest uppercase print-hidden mt-auto">
+    <footer class="w-full text-center py-8 border-t border-slate-900 text-slate-600 text-xs font-bold tracking-widest uppercase print-hidden mt-auto">
          <p class="text-[10px] text-slate-600 font-bold uppercase tracking-[0.1em]">
              Powered by <a href="https://khpartho623.github.io/me/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">Md. Kamrul Hasan</a>
          </p>
@@ -103,7 +105,6 @@
         let activeSection = "1-1 A";
 
         const defaultRoutineData = [
-          // SECTION A
           { "id": 1779378657521, "day": "Saturday", "time": "10:30-11:30", "course": "0533-111 A", "section": "1-1 A", "teacher": "SAT", "room": "402", "type": "Theory" },
           { "id": 1779378657522, "day": "Saturday", "time": "9:30-10:30", "course": "0541-113 A", "section": "1-1 A", "teacher": "HRP", "room": "402", "type": "Theory" },
           { "id": 1779378657523, "day": "Saturday", "time": "1:00-2:00", "course": "0231-112 A2", "section": "1-1 A", "teacher": "MR", "room": "102", "type": "Lab" },
@@ -124,7 +125,6 @@
           { "id": 1779378657538, "day": "Wednesday", "time": "1:00-2:00", "course": "0713-111 A", "section": "1-1 A", "teacher": "MRK", "room": "404", "type": "Theory" },
           { "id": 1779378657539, "day": "Wednesday", "time": "2:00-3:00", "course": "0541-111 A", "section": "1-1 A", "teacher": "SDN", "room": "404", "type": "Theory" },
           { "id": 1779378657540, "day": "Wednesday", "time": "3:00-4:00", "course": "0541-113 A", "section": "1-1 A", "teacher": "HRP", "room": "404", "type": "Theory" },
-          // SECTION B
           { "id": 1779378657541, "day": "Saturday", "time": "8:30-9:30", "course": "0231-112 B2", "section": "1-1 B", "teacher": "MR", "room": "102", "type": "Lab" },
           { "id": 1779378657542, "day": "Saturday", "time": "9:30-10:30", "course": "0231-112 B2", "section": "1-1 B", "teacher": "MR", "room": "102", "type": "Lab" },
           { "id": 1779378657545, "day": "Saturday", "time": "8:30-9:30", "course": "0533-112 B1", "section": "1-1 B", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
@@ -145,7 +145,6 @@
           { "id": 1779378657562, "day": "Wednesday", "time": "1:00-2:00", "course": "0533-111 B", "section": "1-1 B", "teacher": "SAT", "room": "406", "type": "Theory" },
           { "id": 1779378657563, "day": "Wednesday", "time": "2:00-3:00", "course": "0713-111 B", "section": "1-1 B", "teacher": "MRK", "room": "406", "type": "Theory" },
           { "id": 1779378657564, "day": "Wednesday", "time": "3:00-4:00", "course": "0541-111 B", "section": "1-1 B", "teacher": "SDN", "room": "406", "type": "Theory" },
-          // SECTION C
           { "id": 1779378657565, "day": "Saturday", "time": "1:00-2:00", "course": "0541-113 C", "section": "1-1 C", "teacher": "HRP", "room": "405", "type": "Theory" },
           { "id": 1779378657566, "day": "Saturday", "time": "2:00-3:00", "course": "0533-111 C", "section": "1-1 C", "teacher": "SAT", "room": "405", "type": "Theory" },
           { "id": 1779378657567, "day": "Saturday", "time": "3:00-4:00", "course": "0713-111 C", "section": "1-1 C", "teacher": "MRK", "room": "405", "type": "Theory" },
@@ -166,7 +165,6 @@
           { "id": 1779378657584, "day": "Tuesday", "time": "9:30-10:30", "course": "0231-112 C1", "section": "1-1 C", "teacher": "MR", "room": "102", "type": "Lab" },
           { "id": 1779378657585, "day": "Tuesday", "time": "8:30-9:30", "course": "0533-112 C2", "section": "1-1 C", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
           { "id": 1779378657586, "day": "Tuesday", "time": "8:30-9:30", "course": "0533-112 C2", "section": "1-1 C", "teacher": "ZK", "room": "AB2-301", "type": "Lab" },
-          // SECTION D
           { "id": 1779468610899, "day": "Saturday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "SDN", "room": "302", "type": "Theory" },
           { "id": 1779468638058, "day": "Saturday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "MRK", "room": "302", "type": "Theory" },
           { "id": 1779468658311, "day": "Saturday", "time": "3:00-4:00", "section": "1-1 D", "teacher": "HRP", "room": "302", "type": "Theory" },
@@ -187,7 +185,6 @@
           { "id": 1779469084150, "day": "Wednesday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "MR", "room": "102 D1", "type": "Lab" },
           { "id": 1779469106511, "day": "Wednesday", "time": "1:00-2:00", "section": "1-1 D", "teacher": "ZK", "room": "AB-2 301 D2", "type": "Lab" },
           { "id": 1779469123966, "day": "Wednesday", "time": "2:00-3:00", "section": "1-1 D", "teacher": "ZK", "room": "AB-2 301 D2", "type": "Lab" },
-          // SECTION E
           { "id": 1779469693950, "day": "Saturday", "time": "11:30-12:30", "section": "1-1 E", "teacher": "TRS", "room": "404", "type": "Theory" },
           { "id": 1779469714367, "day": "Saturday", "time": "1:00-2:00", "section": "1-1 E", "teacher": "SS", "room": "306", "type": "Theory" },
           { "id": 1779469747081, "day": "Saturday", "time": "2:00-3:00", "section": "1-1 E", "teacher": "KMT", "room": "306", "type": "Theory" },
@@ -206,7 +203,6 @@
           { "id": 1779470051541, "day": "Wednesday", "time": "1:00-2:00", "section": "1-1 E", "teacher": "TRS", "room": "103", "type": "Theory" },
           { "id": 1779470068263, "day": "Wednesday", "time": "2:00-3:00", "section": "1-1 E", "teacher": "KMT", "room": "103", "type": "Theory" },
           { "id": 1779470846855, "day": "Wednesday", "time": "3:00-4:00", "section": "1-1 E", "teacher": "MMR", "room": "103", "type": "Theory" },
-          // SECTION F
           { "id": 1779470332085, "day": "Saturday", "time": "8:30-9:30", "section": "1-1 F", "teacher": "TRS", "room": "103", "type": "Theory" },
           { "id": 1779470347160, "day": "Saturday", "time": "9:30-10:30", "section": "1-1 F", "teacher": "SS", "room": "103", "type": "Theory" },
           { "id": 1779470383823, "day": "Saturday", "time": "10:30-11:30", "section": "1-1 F", "teacher": "MR", "room": "102 F1", "type": "Lab" },
@@ -229,7 +225,6 @@
           { "id": 17794704369560, "day": "Wednesday", "time": "11:30-12:30", "section": "1-1 F", "teacher": "ZK", "room": "AB-2 301 F1", "type": "Lab" }
         ];
 
-        // Database versioning to force clean load
         const DB_KEY = 'eee_routine_v25_data';
         const INIT_KEY = 'eee_v25_initialized';
 
@@ -293,9 +288,9 @@
             const btn = document.getElementById('admin-toggle-btn'), edBtn = document.getElementById('open-editor-btn');
             if (!isAdmin) {
                 const pass = await customPrompt("Security Key Required:", true);
-                if (pass === "eee2026") { isAdmin = true; edBtn.classList.remove('hidden'); document.getElementById('login-text').innerText = "🔓 Logout"; btn.classList.replace('bg-slate-900/90', 'bg-rose-600'); renderRoutine(); showToast("Admin ON"); }
+                if (pass === "eee2026") { isAdmin = true; edBtn.classList.remove('hidden'); document.getElementById('login-text').innerText = "🔓 Logout"; btn.classList.replace('bg-slate-900', 'bg-rose-600'); renderRoutine(); showToast("Admin ON"); }
                 else if (pass !== null) { await customAlert("Incorrect Key!"); }
-            } else { isAdmin = false; edBtn.classList.add('hidden'); closeAdminPanel(); document.getElementById('login-text').innerText = "🔒 Admin Login"; btn.classList.replace('bg-rose-600', 'bg-slate-900/90'); renderRoutine(); }
+            } else { isAdmin = false; edBtn.classList.add('hidden'); closeAdminPanel(); document.getElementById('login-text').innerText = "🔒 Admin Login"; btn.classList.replace('bg-rose-600', 'bg-slate-900'); renderRoutine(); }
         }
 
         function save() { localStorage.setItem(DB_KEY, JSON.stringify(routine)); }
